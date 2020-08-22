@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <script>
+            function updateCounters()  {
+                updateCountersEndpoint('/counters', 'saleCounterSuccess', 'saleCounterError');
+                updateCountersEndpoint('http://localhost:8081/counters', 'paymentCounterSuccess', 'paymentCounterError');
+                updateCountersEndpoint('http://localhost:8082/counters', 'shipmentCounterSuccess', 'shipmentCounterError');
+            }
+
+            function updateCountersEndpoint(endpoint, sucessCounterId, errorCounterId) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", endpoint, true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var json = JSON.parse(xhr.responseText);
+                        document.getElementById(sucessCounterId).innerHTML = `${json.success}`;
+                        document.getElementById(errorCounterId).innerHTML = `${json.error}`;
+                        console.log("sale: " + JSON.stringify(json));
+                    }
+                }
+                xhr.send();
+            }
+
+            function reset()  {
+                resetEndpoint("/reset");
+                resetEndpoint("http://localhost:8081/reset");
+                resetEndpoint("http://localhost:8082/reset");
+            }
+
+            function resetEndpoint(endpoint) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", endpoint, true);
+                xhr.send();
+            }
+        </script>
+        <style>
+            h1 {
+                font-size: 24px;
+                margin-bottom: 0px;
+            }
+
+            .table {
+                display: table;
+                border-collapse: separate;
+                border-spacing: 10px;
+            }
+
+            .row { display:table-row; }
+
+            .cell {
+                display:table-cell;
+                vertical-align: middle;
+                text-align: center;
+                padding:5px;
+                width: 200px; height: 130px;
+                font-size: 70px;
+            }       
+            .cell-header {
+                display:table-cell;
+                vertical-align: middle;
+                text-align: center;
+                padding:5px;
+                width: 200px; height: 20px;
+                font-size: 30px;
+            }                    
+        </style>
+    </header>
+    <body onload="setInterval(updateCounters, 1000)">
+        <h1>Processamento de Vendas</h1>
+        <div class="table">
+            <div style="display: table-row;" class="row">
+                <div class="cell-header" style="background-color: blue;">
+                    Sucesso
+                </div>
+                <div class="cell-header" style="background-color: red;">
+                    Erro
+                </div>               
+            </div>
+            <div style="display: table-row;" class="row">
+                <div id="saleCounterSuccess" class="cell" style="background-color: blue;">
+                    0
+                </div>
+                <div id="saleCounterError" class="cell" style="background-color: red;">
+                    0
+                </div>
+            </div>
+        </div>
+
+        <h1>Processamento dos pagamentos das vendas</h1>
+        <div class="table">
+            <div style="display: table-row;" class="row">
+                <div class="cell-header" style="background-color: blue;">
+                    Sucesso
+                </div>
+                <div class="cell-header" style="background-color: red;">
+                    Erro
+                </div>               
+            </div>
+            <div style="display: table-row;" class="row">
+                <div id="paymentCounterSuccess" class="cell" style="background-color: blue;">
+                    0
+                </div>
+                <div id="paymentCounterError" class="cell" style="background-color: red;">
+                    0
+                </div>
+            </div>
+        </div>
+
+        <h1>Processamento da entrega da venda</h1>
+            <div class="table">
+                <div style="display: table-row;" class="row">
+                    <div class="cell-header" style="background-color: blue;">
+                        Sucesso
+                    </div>
+                    <div class="cell-header" style="background-color: red;">
+                        Erro
+                    </div>               
+                </div>
+                <div style="display: table-row;" class="row">
+                    <div id="shipmentCounterSuccess" class="cell" style="background-color: blue;">
+                        0
+                    </div>
+                    <div id="shipmentCounterError" class="cell" style="background-color: red;">
+                        0
+                    </div>
+                </div>
+    
+                <div style="display: table-row;" class="row">
+                    <button type="button" onclick="reset()">
+                        Limpar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

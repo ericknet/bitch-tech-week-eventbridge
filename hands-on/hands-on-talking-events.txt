@@ -1,0 +1,28 @@
+﻿
+Event-bridge:
+------------------------------------------------------------------------------------------------------
+Configuração para o roteamento das filas:
+
+Event pattern:
+	{
+	   "account": ["995635004925"],
+	   "source": ["api-sale"]
+	}
+
+Configure input(Part of the matched event):
+	$.detail
+
+
+------------------------------------------------------------------------------------------------------
+Configuração para envio da notificação:
+
+Input transformer:
+	Input Path:
+		{
+			"customerName": "$.detail.customerName",
+			"saleValue": "$.detail.saleValue"
+		}
+
+	Input template:	
+		"O <customerName> fez uma compra de <saleValue>."
+	
