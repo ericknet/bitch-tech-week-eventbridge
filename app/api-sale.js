@@ -3,7 +3,7 @@ const APP_PORT = 8080;
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const saleService = require('./services/sale-service-rest')
+const saleService = require('./services/sale-service-event-rest')
 const counters = {success: 0, error: 0}
 
 const app = express()

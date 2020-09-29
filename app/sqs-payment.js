@@ -9,11 +9,11 @@ const paymentService = require('./services/payment-service.js');
 const sqsConsumer = Consumer.create({
     queueUrl: SQS_QUEUE_URL,
     batchSize: 10,
-    terminateVisibilityTimeout: false,
+    terminateVisibilityTimeout: true,
     handleMessage: async (message) => {
       console.log(message);
-      return paymentService.process(null, JSON.parse(message.Body), counters)
-        .then(data => eventbridgeService.sentEvent('sale-payment', data, 'payment'))
+      return paymentService.process(null, JSON.parse(message.Body), counters);
+        //.then(data => eventbridgeService.sentEvent('sale-payment', data, 'payment'))
     }
 });
 

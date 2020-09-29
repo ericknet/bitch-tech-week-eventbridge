@@ -19,6 +19,7 @@ app.post('/shipment', (req, res) => {
     console.log('Iniciar processamento da entrega da venda: ' + JSON.stringify(saleData));
     shipmentService.process(res, saleData, counters)
         .catch(err => {
+            counters.error += 1;
             res.status(500);
             res.send(err);
         });

@@ -19,6 +19,7 @@ app.post('/payment', (req, res) => {
     console.log('Iniciar processamento do pagamento da venda: ' + JSON.stringify(saleData));
     paymentService.process(res, saleData, counters)
         .catch(err => {
+            counters.error += 1;
             res.status(500);
             res.send(err);
         });

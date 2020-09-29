@@ -1,4 +1,7 @@
-﻿
+﻿https://b2wdigital.zoom.us/j/2776783368?pwd=Tk9OWkFUOFQxMngwb1dCaUdqbGlLUT09
+
+
+-----------------------------------------------------------------------------------------------------
 Event-bridge:
 ------------------------------------------------------------------------------------------------------
 Configuração para o roteamento das filas:
@@ -26,3 +29,20 @@ Input transformer:
 	Input template:	
 		"O <customerName> fez uma compra de <saleValue>."
 	
+------------------------------------------------------------------------------------------------------
+https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html
+
+"c-count": [ { "numeric": [ ">", 0, "<=", 5 ] } ],
+"d-count": [ { "numeric": [ "<", 10 ] } ],
+"x-limit": [ { "numeric": [ "=", 3.018e2 ] } ]
+
+"region": [ { "prefix": "eu-" } ]
+"state": [ { "anything-but": "initializing" } ]
+"source": [ { "anything-but": { "prefix": "aws." } } ]
+   
+"source-ip": [ { "cidr": "10.0.0.0/24" } ]
+ 
+
+"c-count": [ { "exists": false  } ]
+
+ 

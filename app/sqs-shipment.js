@@ -8,11 +8,11 @@ const shipmentService = require('./services/shipment-service.js');
 const sqsConsumer = Consumer.create({
     queueUrl: SQS_QUEUE_URL,
     batchSize: 10,
-    terminateVisibilityTimeout: false,
+    terminateVisibilityTimeout: true,
     handleMessage: async (message) => {
       console.log(message);
-      return shipmentService.process(null, JSON.parse(message.Body), counters)
-         .then(data => eventbridgeService.sentEvent('sale-shipment', data, 'shipment'))
+      return shipmentService.process(null, JSON.parse(message.Body), counters);
+         //.then(data => eventbridgeService.sentEvent('sale-shipment', data, 'shipment'))
     }
 });
 

@@ -7,7 +7,7 @@ exports.sentEvent = async (type, data, source) => {
         Entries: [
             {
                 DetailType: type,
-                EventBusName: 'sale-bus2',
+                EventBusName: 'sale-bus5',
                 Source: source,
                 Time: new Date(),
                 Detail: JSON.stringify(data),
